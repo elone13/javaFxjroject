@@ -5,5 +5,11 @@
     <Label text="Tableau de bord Administrateur" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
     <Button text="Gestion des Événements" fx:id="eventButton" onAction="#handleEvent" />
     <Button text="Gestion des Clients" fx:id="clientButton" onAction="#handleClient" />
+    <Button text="Gestion des Salles" fx:id="salleButton" onAction="#handleSalle" />
+    <Button text="Gestion du Matériel" fx:id="materielButton" onAction="#handleMateriel" />
+    <Button text="Gestion des Prestataires" fx:id="prestataireButton" onAction="#handlePrestataire" />
+    <Button text="Gestion des Paiements" fx:id="paiementButton" onAction="#handlePaiement" />
+    <Button text="Gestion des Inscriptions" fx:id="inscriptionButton" onAction="#handleInscription" />
+    <Button text="Gestion des Notifications" fx:id="notificationButton" onAction="#handleNotification" />
     <Button text="Déconnexion" fx:id="logoutButton" onAction="#handleLogout" />
 </VBox> 

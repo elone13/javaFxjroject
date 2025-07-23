@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" spacing="10" alignment="CENTER">
+    <Label text="Gestion du Matériel" styleClass="title-label" />
+    <TableView fx:id="tableMateriels">
+        <columns>
+            <TableColumn text="ID" fx:id="colId" />
+            <TableColumn text="Type" fx:id="colType" />
+            <TableColumn text="État" fx:id="colEtat" />
+            <TableColumn text="Quantité" fx:id="colQuantite" />
+        </columns>
+    </TableView>
+    <HBox spacing="10">
+        <TextField fx:id="typeField" promptText="Type" />
+        <TextField fx:id="etatField" promptText="État" />
+        <TextField fx:id="quantiteField" promptText="Quantité" />
+        <Button text="Ajouter" fx:id="ajouterBtn" />
+        <Button text="Modifier" fx:id="modifierBtn" />
+        <Button text="Supprimer" fx:id="supprimerBtn" />
+    </HBox>
+</VBox> 

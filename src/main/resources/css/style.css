@@ -1,50 +1,99 @@
-/* Style global pour l'application de gestion événementielle */
+/* Style moderne et élégant pour l'application de gestion événementielle */
 
 .root {
     -fx-font-family: 'Segoe UI', Arial, sans-serif;
-    -fx-background-color: #f4f6fa;
+    -fx-background-color: linear-gradient(to bottom right, #e3e9f7, #f8fafd 80%);
+}
+
+.title-label, .label.title-label {
+    -fx-font-size: 2em;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4b3fa7;
+    -fx-padding: 0 0 20 0;
+    -fx-effect: dropshadow(gaussian, #bdbdfc, 8, 0.2, 0, 2);
 }
 
 .label {
-    -fx-text-fill: #222;
+    -fx-text-fill: #333;
+    -fx-font-size: 1em;
 }
 
 .button {
-    -fx-background-color: #1976d2;
+    -fx-background-color: linear-gradient(to bottom, #6a82fb, #4b3fa7);
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-radius: 5;
-    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 25;
+    -fx-padding: 10 24 10 24;
+    -fx-font-size: 1em;
+    -fx-effect: dropshadow(gaussian, #bdbdfc, 4, 0.1, 0, 1);
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+    -fx-transition: all 0.2s;
 }
 
 .button:hover {
-    -fx-background-color: #1565c0;
+    -fx-background-color: linear-gradient(to bottom, #4b3fa7, #6a82fb);
+    -fx-effect: dropshadow(gaussian, #6a82fb, 8, 0.2, 0, 2);
 }
 
 .text-field, .password-field, .date-picker {
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-    -fx-border-color: #bdbdbd;
-    -fx-padding: 6 10 6 10;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #bdbdfc;
+    -fx-background-color: #fff;
+    -fx-padding: 8 16 8 16;
+    -fx-font-size: 1em;
+    -fx-effect: dropshadow(gaussian, #e3e9f7, 2, 0.1, 0, 1);
 }
 
 .table-view {
-    -fx-background-color: white;
-    -fx-border-color: #bdbdbd;
-    -fx-border-radius: 5;
+    -fx-background-color: #fff;
+    -fx-border-color: #bdbdfc;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, #bdbdfc, 8, 0.1, 0, 2);
+    -fx-padding: 10;
 }
 
 .table-view .column-header-background {
-    -fx-background-color: #1976d2;
+    -fx-background-color: linear-gradient(to right, #6a82fb, #4b3fa7);
+    -fx-background-radius: 12 12 0 0;
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 32px;
+    -fx-size: 36px;
     -fx-border-width: 0 0 1 0;
-    -fx-border-color: transparent transparent #bdbdbd transparent;
+    -fx-border-color: transparent transparent #bdbdfc transparent;
 }
 
 .table-view .label {
     -fx-text-fill: white;
     -fx-font-weight: bold;
+    -fx-font-size: 1.05em;
+}
+
+.table-row-cell:filled:selected, .table-row-cell:focused:selected {
+    -fx-background-color: linear-gradient(to right, #bdbdfc, #6a82fb 80%);
+    -fx-text-fill: #222;
+}
+
+.hbox, .vbox {
+    -fx-spacing: 12;
+}
+
+/* Ajout d'une ombre douce aux boîtes */
+.hbox, .vbox, .table-view {
+    -fx-effect: dropshadow(gaussian, #e3e9f7, 4, 0.1, 0, 1);
+}
+
+/* Scrollbar stylée */
+.scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
+    -fx-background-color: #bdbdfc;
+    -fx-background-radius: 8;
+}
+
+/* Champs de saisie focus */
+.text-field:focused, .password-field:focused, .date-picker:focused {
+    -fx-border-color: #6a82fb;
+    -fx-background-color: #f4f6fa;
 } 

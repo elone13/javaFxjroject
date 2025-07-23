@@ -12,6 +12,12 @@ public class AdminDashboardController {
     @FXML private Button eventButton;
     @FXML private Button clientButton;
     @FXML private Button logoutButton;
+    @FXML private Button salleButton;
+    @FXML private Button materielButton;
+    @FXML private Button prestataireButton;
+    @FXML private Button paiementButton;
+    @FXML private Button inscriptionButton;
+    @FXML private Button notificationButton;
 
     @FXML
     private void initialize() {
@@ -32,6 +38,36 @@ public class AdminDashboardController {
     private void handleLogout(ActionEvent event) {
         com.eventmanager.util.SessionUtil.clear();
         switchScene("/fxml/login.fxml");
+    }
+
+    @FXML
+    private void handleSalle(ActionEvent event) {
+        switchScene("/fxml/salles.fxml");
+    }
+
+    @FXML
+    private void handleMateriel(ActionEvent event) {
+        switchScene("/fxml/materiels.fxml");
+    }
+
+    @FXML
+    private void handlePrestataire(ActionEvent event) {
+        switchScene("/fxml/prestataires.fxml");
+    }
+
+    @FXML
+    private void handlePaiement(ActionEvent event) {
+        switchScene("/fxml/paiements.fxml");
+    }
+
+    @FXML
+    private void handleInscription(ActionEvent event) {
+        switchScene("/fxml/inscriptions.fxml");
+    }
+
+    @FXML
+    private void handleNotification(ActionEvent event) {
+        switchScene("/fxml/notifications.fxml");
     }
 
     private void switchScene(String fxmlPath) {

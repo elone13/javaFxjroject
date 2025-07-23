@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" spacing="10" alignment="CENTER">
+    <Label text="Gestion des Inscriptions" styleClass="title-label" />
+    <TableView fx:id="tableInscriptions">
+        <columns>
+            <TableColumn text="ID" fx:id="colId" />
+            <TableColumn text="Participant" fx:id="colParticipant" />
+            <TableColumn text="Événement" fx:id="colEvenement" />
+            <TableColumn text="Statut" fx:id="colStatut" />
+            <TableColumn text="Paiement" fx:id="colPaiement" />
+        </columns>
+    </TableView>
+    <HBox spacing="10">
+        <TextField fx:id="participantField" promptText="ID Participant" />
+        <TextField fx:id="evenementField" promptText="ID Événement" />
+        <TextField fx:id="statutField" promptText="Statut" />
+        <TextField fx:id="paiementField" promptText="ID Paiement" />
+        <Button text="Ajouter" fx:id="ajouterBtn" />
+        <Button text="Modifier" fx:id="modifierBtn" />
+        <Button text="Supprimer" fx:id="supprimerBtn" />
+    </HBox>
+</VBox> 
