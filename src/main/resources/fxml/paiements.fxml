@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" spacing="10" alignment="CENTER">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" spacing="22" alignment="CENTER" styleClass="page-root">
     <Label text="Gestion des Paiements" styleClass="title-label" />
-    <TableView fx:id="tablePaiements">
+    <TableView fx:id="tablePaiements" maxWidth="700" minHeight="220">
         <columns>
             <TableColumn text="ID" fx:id="colId" />
             <TableColumn text="Montant" fx:id="colMontant" />
@@ -12,13 +12,13 @@
             <TableColumn text="Événement" fx:id="colEvenement" />
         </columns>
     </TableView>
-    <HBox spacing="10">
-        <TextField fx:id="montantField" promptText="Montant" />
-        <TextField fx:id="dateField" promptText="Date (YYYY-MM-DD)" />
-        <TextField fx:id="participantField" promptText="ID Participant" />
-        <TextField fx:id="evenementField" promptText="ID Événement" />
-        <Button text="Ajouter" fx:id="ajouterBtn" />
-        <Button text="Modifier" fx:id="modifierBtn" />
-        <Button text="Supprimer" fx:id="supprimerBtn" />
+    <HBox spacing="14" alignment="CENTER">
+        <TextField fx:id="montantField" promptText="Montant" styleClass="input-field" />
+        <TextField fx:id="dateField" promptText="Date (YYYY-MM-DD)" styleClass="input-field" />
+        <TextField fx:id="participantField" promptText="ID Participant" styleClass="input-field" />
+        <TextField fx:id="evenementField" promptText="ID Événement" styleClass="input-field" />
+        <Button text="Ajouter" fx:id="ajouterBtn" styleClass="main-btn" />
+        <Button text="Modifier" fx:id="modifierBtn" styleClass="main-btn" />
+        <Button text="Supprimer" fx:id="supprimerBtn" styleClass="main-btn" />
     </HBox>
 </VBox> 

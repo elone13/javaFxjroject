@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" spacing="10" alignment="CENTER">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" spacing="22" alignment="CENTER" styleClass="page-root">
     <Label text="Gestion des Prestataires" styleClass="title-label" />
-    <TableView fx:id="tablePrestataires">
+    <TableView fx:id="tablePrestataires" maxWidth="700" minHeight="220">
         <columns>
             <TableColumn text="ID" fx:id="colId" />
             <TableColumn text="Nom" fx:id="colNom" />
@@ -11,12 +11,12 @@
             <TableColumn text="Contact" fx:id="colContact" />
         </columns>
     </TableView>
-    <HBox spacing="10">
-        <TextField fx:id="nomField" promptText="Nom" />
-        <TextField fx:id="serviceField" promptText="Service" />
-        <TextField fx:id="contactField" promptText="Contact" />
-        <Button text="Ajouter" fx:id="ajouterBtn" />
-        <Button text="Modifier" fx:id="modifierBtn" />
-        <Button text="Supprimer" fx:id="supprimerBtn" />
+    <HBox spacing="14" alignment="CENTER">
+        <TextField fx:id="nomField" promptText="Nom" styleClass="input-field" />
+        <TextField fx:id="serviceField" promptText="Service" styleClass="input-field" />
+        <TextField fx:id="contactField" promptText="Contact" styleClass="input-field" />
+        <Button text="Ajouter" fx:id="ajouterBtn" styleClass="main-btn" />
+        <Button text="Modifier" fx:id="modifierBtn" styleClass="main-btn" />
+        <Button text="Supprimer" fx:id="supprimerBtn" styleClass="main-btn" />
     </HBox>
 </VBox> 

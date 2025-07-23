@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" spacing="20" style="-fx-padding: 40;" fx:controller="com.eventmanager.controller.AdminDashboardController">
-    <Label text="Tableau de bord Administrateur" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-    <Button text="Gestion des Événements" fx:id="eventButton" onAction="#handleEvent" />
-    <Button text="Gestion des Clients" fx:id="clientButton" onAction="#handleClient" />
-    <Button text="Gestion des Salles" fx:id="salleButton" onAction="#handleSalle" />
-    <Button text="Gestion du Matériel" fx:id="materielButton" onAction="#handleMateriel" />
-    <Button text="Gestion des Prestataires" fx:id="prestataireButton" onAction="#handlePrestataire" />
-    <Button text="Gestion des Paiements" fx:id="paiementButton" onAction="#handlePaiement" />
-    <Button text="Gestion des Inscriptions" fx:id="inscriptionButton" onAction="#handleInscription" />
-    <Button text="Gestion des Notifications" fx:id="notificationButton" onAction="#handleNotification" />
-    <Button text="Déconnexion" fx:id="logoutButton" onAction="#handleLogout" />
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" spacing="28" styleClass="dashboard-root" fx:controller="com.eventmanager.controller.AdminDashboardController">
+    <Label text="Tableau de bord Administrateur" styleClass="title-label" />
+    <VBox spacing="14" alignment="CENTER">
+        <Button text="Gestion des Événements" fx:id="eventButton" onAction="#handleEvent" styleClass="main-btn" />
+        <Button text="Gestion des Clients" fx:id="clientButton" onAction="#handleClient" styleClass="main-btn" />
+        <Button text="Gestion des Salles" fx:id="salleButton" onAction="#handleSalle" styleClass="main-btn" />
+        <Button text="Gestion du Matériel" fx:id="materielButton" onAction="#handleMateriel" styleClass="main-btn" />
+        <Button text="Gestion des Prestataires" fx:id="prestataireButton" onAction="#handlePrestataire" styleClass="main-btn" />
+        <Button text="Gestion des Paiements" fx:id="paiementButton" onAction="#handlePaiement" styleClass="main-btn" />
+        <Button text="Gestion des Inscriptions" fx:id="inscriptionButton" onAction="#handleInscription" styleClass="main-btn" />
+        <Button text="Gestion des Notifications" fx:id="notificationButton" onAction="#handleNotification" styleClass="main-btn" />
+    </VBox>
+    <Button text="Déconnexion" fx:id="logoutButton" onAction="#handleLogout" styleClass="logout-btn" />
 </VBox> 

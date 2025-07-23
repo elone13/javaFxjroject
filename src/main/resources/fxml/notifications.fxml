@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" spacing="10" alignment="CENTER">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" spacing="22" alignment="CENTER" styleClass="page-root">
     <Label text="Gestion des Notifications" styleClass="title-label" />
-    <TableView fx:id="tableNotifications">
+    <TableView fx:id="tableNotifications" maxWidth="700" minHeight="220">
         <columns>
             <TableColumn text="ID" fx:id="colId" />
             <TableColumn text="Type" fx:id="colType" />
@@ -12,13 +12,13 @@
             <TableColumn text="Date" fx:id="colDate" />
         </columns>
     </TableView>
-    <HBox spacing="10">
-        <TextField fx:id="typeField" promptText="Type" />
-        <TextField fx:id="destinataireField" promptText="Destinataire" />
-        <TextField fx:id="contenuField" promptText="Contenu" />
-        <TextField fx:id="dateField" promptText="Date (YYYY-MM-DD HH:MM)" />
-        <Button text="Ajouter" fx:id="ajouterBtn" />
-        <Button text="Modifier" fx:id="modifierBtn" />
-        <Button text="Supprimer" fx:id="supprimerBtn" />
+    <HBox spacing="14" alignment="CENTER">
+        <TextField fx:id="typeField" promptText="Type" styleClass="input-field" />
+        <TextField fx:id="destinataireField" promptText="Destinataire" styleClass="input-field" />
+        <TextField fx:id="contenuField" promptText="Contenu" styleClass="input-field" />
+        <TextField fx:id="dateField" promptText="Date (YYYY-MM-DD HH:MM)" styleClass="input-field" />
+        <Button text="Ajouter" fx:id="ajouterBtn" styleClass="main-btn" />
+        <Button text="Modifier" fx:id="modifierBtn" styleClass="main-btn" />
+        <Button text="Supprimer" fx:id="supprimerBtn" styleClass="main-btn" />
     </HBox>
 </VBox> 

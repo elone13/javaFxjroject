@@ -3,13 +3,13 @@
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventmanager.controller.ClientController">
     <top>
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <Button text="Retour" onAction="#handleBack" />
-            <Label text="Gestion des Clients" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 10;" />
+        <HBox spacing="14" alignment="CENTER_LEFT" styleClass="page-header">
+            <Button text="Retour" onAction="#handleBack" styleClass="main-btn" />
+            <Label text="Gestion des Clients" styleClass="title-label" />
         </HBox>
     </top>
     <center>
-        <TableView fx:id="clientTable" prefHeight="300">
+        <TableView fx:id="clientTable" prefHeight="300" maxWidth="700">
             <columns>
                 <TableColumn text="ID" fx:id="idColumn" />
                 <TableColumn text="Nom" fx:id="nameColumn" />
@@ -19,16 +19,16 @@
         </TableView>
     </center>
     <bottom>
-        <VBox spacing="10" style="-fx-padding: 10;">
-            <HBox spacing="10">
-                <Button text="Ajouter" onAction="#handleAdd" />
-                <Button text="Modifier" onAction="#handleEdit" />
-                <Button text="Supprimer" onAction="#handleDelete" />
+        <VBox spacing="14" styleClass="page-bottom">
+            <HBox spacing="14" alignment="CENTER">
+                <Button text="Ajouter" onAction="#handleAdd" styleClass="main-btn" />
+                <Button text="Modifier" onAction="#handleEdit" styleClass="main-btn" />
+                <Button text="Supprimer" onAction="#handleDelete" styleClass="main-btn" />
             </HBox>
-            <HBox spacing="10">
-                <TextField fx:id="nameField" promptText="Nom" />
-                <TextField fx:id="emailField" promptText="Email" />
-                <TextField fx:id="phoneField" promptText="Téléphone" />
+            <HBox spacing="14" alignment="CENTER">
+                <TextField fx:id="nameField" promptText="Nom" styleClass="input-field" />
+                <TextField fx:id="emailField" promptText="Email" styleClass="input-field" />
+                <TextField fx:id="phoneField" promptText="Téléphone" styleClass="input-field" />
             </HBox>
         </VBox>
     </bottom>

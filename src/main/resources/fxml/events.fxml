@@ -3,13 +3,13 @@
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventmanager.controller.EventController">
     <top>
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <Button text="Retour" onAction="#handleBack" />
-            <Label text="Gestion des Événements" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 10;" />
+        <HBox spacing="14" alignment="CENTER_LEFT" styleClass="page-header">
+            <Button text="Retour" onAction="#handleBack" styleClass="main-btn" />
+            <Label text="Gestion des Événements" styleClass="title-label" />
         </HBox>
     </top>
     <center>
-        <TableView fx:id="eventTable" prefHeight="300">
+        <TableView fx:id="eventTable" prefHeight="300" maxWidth="900">
             <columns>
                 <TableColumn text="ID" fx:id="idColumn" />
                 <TableColumn text="Titre" fx:id="titleColumn" />
@@ -21,18 +21,18 @@
         </TableView>
     </center>
     <bottom>
-        <VBox spacing="10" style="-fx-padding: 10;">
-            <HBox spacing="10">
-                <Button text="Ajouter" onAction="#handleAdd" />
-                <Button text="Modifier" onAction="#handleEdit" />
-                <Button text="Supprimer" onAction="#handleDelete" />
+        <VBox spacing="14" styleClass="page-bottom">
+            <HBox spacing="14" alignment="CENTER">
+                <Button text="Ajouter" onAction="#handleAdd" styleClass="main-btn" />
+                <Button text="Modifier" onAction="#handleEdit" styleClass="main-btn" />
+                <Button text="Supprimer" onAction="#handleDelete" styleClass="main-btn" />
             </HBox>
-            <HBox spacing="10">
-                <TextField fx:id="titleField" promptText="Titre" />
-                <DatePicker fx:id="datePicker" promptText="Date" />
-                <TextField fx:id="clientField" promptText="Client (ID)" />
-                <TextField fx:id="providerField" promptText="Prestataire" />
-                <TextField fx:id="statusField" promptText="Statut" />
+            <HBox spacing="14" alignment="CENTER">
+                <TextField fx:id="titleField" promptText="Titre" styleClass="input-field" />
+                <DatePicker fx:id="datePicker" promptText="Date" styleClass="input-field" />
+                <TextField fx:id="clientField" promptText="Client (ID)" styleClass="input-field" />
+                <TextField fx:id="providerField" promptText="Prestataire" styleClass="input-field" />
+                <TextField fx:id="statusField" promptText="Statut" styleClass="input-field" />
             </HBox>
         </VBox>
     </bottom>
