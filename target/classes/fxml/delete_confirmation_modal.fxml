@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" 
+           xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="com.eventmanager.controller.DeleteConfirmationModalController"
+           stylesheets="@../css/style.css"
+           styleClass="modal-overlay">
+
+   <children>
+      <VBox styleClass="modal-container" maxWidth="500" spacing="25">
+         <children>
+            <!-- Modal Header -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+               <children>
+                  <Label text="⚠️ Confirmation de suppression" styleClass="modal-title"/>
+                  <Region HBox.hgrow="ALWAYS"/>
+                  <Button onAction="#handleClose" styleClass="btn-outline" text="✕" />
+               </children>
+            </HBox>
+
+            <!-- Modal Content -->
+            <VBox spacing="20" styleClass="modal-content">
+               <children>
+                  <VBox spacing="15" alignment="CENTER">
+                     <children>
+                        <Label text="🗑️" style="-fx-font-size: 48px;"/>
+                        <Label fx:id="confirmationMessage" 
+                               text="Êtes-vous sûr de vouloir supprimer les éléments sélectionnés ?" 
+                               style="-fx-text-fill: #e5e7eb; -fx-font-size: 16px; -fx-text-alignment: center;"
+                               wrapText="true"/>
+                        <Label fx:id="itemCountLabel" 
+                               text="Cette action supprimera définitivement X élément(s)." 
+                               style="-fx-text-fill: #fbbf24; -fx-font-weight: 600; -fx-text-alignment: center;"
+                               wrapText="true"/>
+                     </children>
+                  </VBox>
+
+                  <!-- Selected Items List -->
+                  <TitledPane text="📋 Éléments à supprimer" expanded="false" styleClass="titled-pane">
+                     <content>
+                        <ScrollPane fitToWidth="true" maxHeight="150" styleClass="scroll-pane">
+                           <content>
+                              <ListView fx:id="itemsList" styleClass="modern-table" maxHeight="150"/>
+                           </content>
+                        </ScrollPane>
+                     </content>
+                  </TitledPane>
+
+                  <!-- Warning Box -->
+                  <HBox spacing="10" style="-fx-background-color: rgba(239, 68, 68, 0.1); -fx-border-color: #ef4444; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 15;">
+                     <children>
+                        <Label text="⚠️" style="-fx-text-fill: #ef4444; -fx-font-size: 20px;"/>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label text="Attention !" style="-fx-text-fill: #ef4444; -fx-font-weight: bold;"/>
+                              <Label text="Cette action est irréversible. Toutes les données associées seront définitivement perdues." 
+                                     style="-fx-text-fill: #e5e7eb; -fx-font-size: 12px;"
+                                     wrapText="true"/>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+
+            <!-- Modal Footer -->
+            <HBox alignment="CENTER_RIGHT" spacing="15">
+               <children>
+                  <Button onAction="#handleCancel" styleClass="btn-outline" text="Annuler" />
+                  <Button onAction="#handleConfirmDelete" styleClass="btn-danger" text="🗑️ Supprimer définitivement" />
+               </children>
+            </HBox>
+         </children>
+         
+         <padding>
+            <Insets bottom="30" left="30" right="30" top="30"/>
+         </padding>
+      </VBox>
+   </children>
+</StackPane>

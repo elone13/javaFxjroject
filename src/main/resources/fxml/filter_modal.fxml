@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" 
+           xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="com.eventmanager.controller.FilterModalController"
+           stylesheets="@../css/style.css"
+           styleClass="modal-overlay">
+
+   <children>
+      <VBox styleClass="modal-container" maxWidth="600" spacing="25">
+         <children>
+            <!-- Modal Header -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+               <children>
+                  <Label text="🔍 Filtres avancés" styleClass="modal-title"/>
+                  <Region HBox.hgrow="ALWAYS"/>
+                  <Button onAction="#handleReset" styleClass="btn-outline" text="🔄 Réinitialiser" />
+                  <Button onAction="#handleClose" styleClass="btn-outline" text="✕" />
+               </children>
+            </HBox>
+
+            <!-- Modal Content -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" maxHeight="400" styleClass="scroll-pane">
+               <content>
+                  <VBox spacing="20" styleClass="modal-content">
+                     <children>
+                        <!-- Date Filters -->
+                        <TitledPane text="📅 Filtres de date" expanded="true" styleClass="titled-pane">
+                           <content>
+                              <GridPane hgap="20" vgap="15" style="-fx-padding: 15;">
+                                 <columnConstraints>
+                                    <ColumnConstraints percentWidth="50"/>
+                                    <ColumnConstraints percentWidth="50"/>
+                                 </columnConstraints>
+
+                                 <children>
+                                    <VBox spacing="8">
+                                       <children>
+                                          <Label text="Date de début" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <DatePicker fx:id="startDatePicker" styleClass="form-field"/>
+                                       </children>
+                                    </VBox>
+
+                                    <VBox spacing="8" GridPane.columnIndex="1">
+                                       <children>
+                                          <Label text="Date de fin" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <DatePicker fx:id="endDatePicker" styleClass="form-field"/>
+                                       </children>
+                                    </VBox>
+
+                                    <VBox spacing="8" GridPane.rowIndex="1" GridPane.columnSpan="2">
+                                       <children>
+                                          <Label text="Période prédéfinie" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <HBox spacing="10">
+                                             <children>
+                                                <Button onAction="#handleToday" styleClass="btn-outline" text="Aujourd'hui" />
+                                                <Button onAction="#handleThisWeek" styleClass="btn-outline" text="Cette semaine" />
+                                                <Button onAction="#handleThisMonth" styleClass="btn-outline" text="Ce mois" />
+                                                <Button onAction="#handleThisYear" styleClass="btn-outline" text="Cette année" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </GridPane>
+                           </content>
+                        </TitledPane>
+
+                        <!-- Status & Category Filters -->
+                        <TitledPane text="🏷️ Statut et catégorie" expanded="true" styleClass="titled-pane">
+                           <content>
+                              <GridPane hgap="20" vgap="15" style="-fx-padding: 15;">
+                                 <columnConstraints>
+                                    <ColumnConstraints percentWidth="50"/>
+                                    <ColumnConstraints percentWidth="50"/>
+                                 </columnConstraints>
+
+                                 <children>
+                                    <VBox spacing="8">
+                                       <children>
+                                          <Label text="Statut" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <VBox spacing="5">
+                                             <children>
+                                                <CheckBox fx:id="statusPlannedCheckBox" text="Planifié" styleClass="check-box"/>
+                                                <CheckBox fx:id="statusInProgressCheckBox" text="En cours" styleClass="check-box"/>
+                                                <CheckBox fx:id="statusCompletedCheckBox" text="Terminé" styleClass="check-box"/>
+                                                <CheckBox fx:id="statusCancelledCheckBox" text="Annulé" styleClass="check-box"/>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+
+                                    <VBox spacing="8" GridPane.columnIndex="1">
+                                       <children>
+                                          <Label text="Client" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <ComboBox fx:id="clientFilterComboBox" styleClass="form-field" maxWidth="Infinity"/>
+                                       </children>
+                                    </VBox>
+
+                                    <VBox spacing="8" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label text="Prix minimum (€)" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <TextField fx:id="minPriceField" promptText="0.00" styleClass="form-field"/>
+                                       </children>
+                                    </VBox>
+
+                                    <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label text="Prix maximum (€)" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <TextField fx:id="maxPriceField" promptText="1000.00" styleClass="form-field"/>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </GridPane>
+                           </content>
+                        </TitledPane>
+
+                        <!-- Search Filters -->
+                        <TitledPane text="🔍 Recherche textuelle" expanded="true" styleClass="titled-pane">
+                           <content>
+                              <VBox spacing="15" style="-fx-padding: 15;">
+                                 <children>
+                                    <VBox spacing="8">
+                                       <children>
+                                          <Label text="Rechercher dans" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <TextField fx:id="searchField" promptText="Titre, lieu, description..." styleClass="form-field"/>
+                                       </children>
+                                    </VBox>
+                                    
+                                    <VBox spacing="8">
+                                       <children>
+                                          <Label text="Options de recherche" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <HBox spacing="15">
+                                             <children>
+                                                <CheckBox fx:id="searchInTitleCheckBox" text="Titre" styleClass="check-box" selected="true"/>
+                                                <CheckBox fx:id="searchInLocationCheckBox" text="Lieu" styleClass="check-box" selected="true"/>
+                                                <CheckBox fx:id="searchInDescriptionCheckBox" text="Description" styleClass="check-box"/>
+                                                <CheckBox fx:id="caseSensitiveCheckBox" text="Sensible à la casse" styleClass="check-box"/>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </TitledPane>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+
+            <!-- Modal Footer -->
+            <HBox alignment="CENTER_RIGHT" spacing="15">
+               <children>
+                  <Label fx:id="resultCountLabel" text="0 résultat(s) trouvé(s)" style="-fx-text-fill: #9ca3af;"/>
+                  <Region HBox.hgrow="ALWAYS"/>
+                  <Button onAction="#handleCancel" styleClass="btn-outline" text="Annuler" />
+                  <Button onAction="#handleApplyFilters" styleClass="btn-primary" text="🔍 Appliquer les filtres" />
+               </children>
+            </HBox>
+         </children>
+         
+         <padding>
+            <Insets bottom="30" left="30" right="30" top="30"/>
+         </padding>
+      </VBox>
+   </children>
+</StackPane>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" 
+           xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="com.eventmanager.controller.EventModalController"
+           stylesheets="@../css/style.css"
+           styleClass="modal-overlay">
+
+   <children>
+      <VBox styleClass="modal-container" maxWidth="700" spacing="25">
+         <children>
+            <!-- Modal Header -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+               <children>
+                  <Label fx:id="modalTitle" text="📅 Nouvel Événement" styleClass="modal-title"/>
+                  <Region HBox.hgrow="ALWAYS"/>
+                  <Button onAction="#handleClose" styleClass="btn-outline" text="✕" />
+               </children>
+            </HBox>
+
+            <!-- Modal Content -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" maxHeight="400" styleClass="scroll-pane">
+               <content>
+                  <VBox spacing="20" styleClass="modal-content">
+                     <children>
+                        <!-- Basic Information -->
+                        <TitledPane text="📋 Informations de base" expanded="true" styleClass="titled-pane">
+                           <content>
+                              <GridPane hgap="20" vgap="15" style="-fx-padding: 15;">
+                                 <columnConstraints>
+                                    <ColumnConstraints percentWidth="50"/>
+                                    <ColumnConstraints percentWidth="50"/>
+                                 </columnConstraints>
+
+                                 <children>
+                                    <VBox spacing="8">
+                                       <children>
+                                          <Label text="Titre *" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <TextField fx:id="titleField" promptText="Nom de l'événement" styleClass="form-field"/>
+                                       </children>
+                                    </VBox>
+
+                                    <VBox spacing="8" GridPane.columnIndex="1">
+                                       <children>
+                                          <Label text="Date *" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <DatePicker fx:id="datePicker" styleClass="form-field"/>
+                                       </children>
+                                    </VBox>
+
+                                    <VBox spacing="8" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label text="Heure début" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <TextField fx:id="startTimeField" promptText="09:00" styleClass="form-field"/>
+                                       </children>
+                                    </VBox>
+
+                                    <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label text="Heure fin" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <TextField fx:id="endTimeField" promptText="17:00" styleClass="form-field"/>
+                                       </children>
+                                    </VBox>
+
+                                    <VBox spacing="8" GridPane.rowIndex="2">
+                                       <children>
+                                          <Label text="Client *" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <ComboBox fx:id="clientComboBox" styleClass="form-field" maxWidth="Infinity"/>
+                                       </children>
+                                    </VBox>
+
+                                    <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <children>
+                                          <Label text="Statut" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <ComboBox fx:id="statusComboBox" styleClass="form-field" maxWidth="Infinity"/>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </GridPane>
+                           </content>
+                        </TitledPane>
+
+                        <!-- Location & Details -->
+                        <TitledPane text="📍 Lieu et détails" expanded="true" styleClass="titled-pane">
+                           <content>
+                              <GridPane hgap="20" vgap="15" style="-fx-padding: 15;">
+                                 <columnConstraints>
+                                    <ColumnConstraints percentWidth="50"/>
+                                    <ColumnConstraints percentWidth="50"/>
+                                 </columnConstraints>
+
+                                 <children>
+                                    <VBox spacing="8">
+                                       <children>
+                                          <Label text="Lieu" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <TextField fx:id="locationField" promptText="Adresse complète" styleClass="form-field"/>
+                                       </children>
+                                    </VBox>
+
+                                    <VBox spacing="8" GridPane.columnIndex="1">
+                                       <children>
+                                          <Label text="Prestataire" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <TextField fx:id="providerField" promptText="Nom du prestataire" styleClass="form-field"/>
+                                       </children>
+                                    </VBox>
+
+                                    <VBox spacing="8" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label text="Prix (€)" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <TextField fx:id="priceField" promptText="0.00" styleClass="form-field"/>
+                                       </children>
+                                    </VBox>
+
+                                    <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label text="Max. Participants" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                          <TextField fx:id="maxParticipantsField" promptText="100" styleClass="form-field"/>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </GridPane>
+                           </content>
+                        </TitledPane>
+
+                        <!-- Description -->
+                        <TitledPane text="📝 Description" expanded="true" styleClass="titled-pane">
+                           <content>
+                              <VBox spacing="8" style="-fx-padding: 15;">
+                                 <children>
+                                    <Label text="Description de l'événement" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                    <TextArea fx:id="descriptionArea" 
+                                              promptText="Décrivez votre événement en détail..."
+                                              styleClass="form-field"
+                                              prefRowCount="4"
+                                              maxHeight="120"/>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </TitledPane>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+
+            <!-- Modal Footer -->
+            <HBox alignment="CENTER_RIGHT" spacing="15">
+               <children>
+                  <Button onAction="#handleCancel" styleClass="btn-outline" text="Annuler" />
+                  <Button onAction="#handleSave" styleClass="btn-primary" text="💾 Enregistrer" />
+               </children>
+            </HBox>
+         </children>
+         
+         <padding>
+            <Insets bottom="30" left="30" right="30" top="30"/>
+         </padding>
+      </VBox>
+   </children>
+</StackPane>

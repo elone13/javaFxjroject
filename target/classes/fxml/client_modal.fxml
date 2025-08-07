@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" 
+           xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="com.eventmanager.controller.ClientModalController"
+           stylesheets="@../css/style.css"
+           styleClass="modal-overlay">
+
+   <children>
+      <VBox styleClass="modal-container" maxWidth="500" spacing="25">
+         <children>
+            <!-- Modal Header -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+               <children>
+                  <Label fx:id="modalTitle" text="👥 Nouveau Client" styleClass="modal-title"/>
+                  <Region HBox.hgrow="ALWAYS"/>
+                  <Button onAction="#handleClose" styleClass="btn-outline" text="✕" />
+               </children>
+            </HBox>
+
+            <!-- Modal Content -->
+            <VBox spacing="20" styleClass="modal-content">
+               <children>
+                  <!-- Basic Information -->
+                  <TitledPane text="📋 Informations personnelles" expanded="true" styleClass="titled-pane">
+                     <content>
+                        <VBox spacing="15" style="-fx-padding: 15;">
+                           <children>
+                              <VBox spacing="8">
+                                 <children>
+                                    <Label text="Nom complet *" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                    <TextField fx:id="nameField" promptText="Nom et prénom du client" styleClass="form-field"/>
+                                 </children>
+                              </VBox>
+
+                              <VBox spacing="8">
+                                 <children>
+                                    <Label text="Email *" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                    <TextField fx:id="emailField" promptText="exemple@email.com" styleClass="form-field"/>
+                                 </children>
+                              </VBox>
+
+                              <VBox spacing="8">
+                                 <children>
+                                    <Label text="Téléphone" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                    <TextField fx:id="phoneField" promptText="+33 6 12 34 56 78" styleClass="form-field"/>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </TitledPane>
+
+                  <!-- Company Information -->
+                  <TitledPane text="🏢 Informations entreprise" expanded="false" styleClass="titled-pane">
+                     <content>
+                        <VBox spacing="15" style="-fx-padding: 15;">
+                           <children>
+                              <VBox spacing="8">
+                                 <children>
+                                    <Label text="Entreprise" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                    <TextField fx:id="companyField" promptText="Nom de l'entreprise" styleClass="form-field"/>
+                                 </children>
+                              </VBox>
+
+                              <VBox spacing="8">
+                                 <children>
+                                    <Label text="Poste" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                    <TextField fx:id="positionField" promptText="Fonction dans l'entreprise" styleClass="form-field"/>
+                                 </children>
+                              </VBox>
+
+                              <VBox spacing="8">
+                                 <children>
+                                    <Label text="Adresse" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                                    <TextArea fx:id="addressArea" 
+                                              promptText="Adresse complète..."
+                                              styleClass="form-field"
+                                              prefRowCount="2"
+                                              maxHeight="60"/>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </TitledPane>
+
+                  <!-- Notes -->
+                  <TitledPane text="📝 Notes" expanded="false" styleClass="titled-pane">
+                     <content>
+                        <VBox spacing="8" style="-fx-padding: 15;">
+                           <children>
+                              <Label text="Notes additionnelles" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;"/>
+                              <TextArea fx:id="notesArea" 
+                                        promptText="Informations complémentaires sur le client..."
+                                        styleClass="form-field"
+                                        prefRowCount="3"
+                                        maxHeight="90"/>
+                           </children>
+                        </VBox>
+                     </content>
+                  </TitledPane>
+               </children>
+            </VBox>
+
+            <!-- Modal Footer -->
+            <HBox alignment="CENTER_RIGHT" spacing="15">
+               <children>
+                  <Button onAction="#handleCancel" styleClass="btn-outline" text="Annuler" />
+                  <Button onAction="#handleSave" styleClass="btn-primary" text="💾 Enregistrer" />
+               </children>
+            </HBox>
+         </children>
+         
+         <padding>
+            <Insets bottom="30" left="30" right="30" top="30"/>
+         </padding>
+      </VBox>
+   </children>
+</StackPane>

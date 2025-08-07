@@ -7,15 +7,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 
 public class AdminDashboardController {
     @FXML private Button eventButton;
     @FXML private Button clientButton;
+    @FXML private Button participantButton;
+    @FXML private Button inscriptionButton;
+    @FXML private Button resourceButton;
+    @FXML private Button reportButton;
     @FXML private Button logoutButton;
 
     @FXML
     private void initialize() {
-        // Rien à initialiser pour l'instant
+        // Initialization if needed
     }
 
     @FXML
@@ -29,6 +34,26 @@ public class AdminDashboardController {
     }
 
     @FXML
+    private void handleParticipant(ActionEvent event) {
+        switchScene("/fxml/participants.fxml");
+    }
+
+    @FXML
+    private void handleInscription(ActionEvent event) {
+        switchScene("/fxml/inscriptions.fxml");
+    }
+
+    @FXML
+    private void handleResource(ActionEvent event) {
+        switchScene("/fxml/resources.fxml");
+    }
+
+    @FXML
+    private void handleReport(ActionEvent event) {
+        showInfo("Fonctionnalité en développement", "La génération de rapports sera bientôt disponible.");
+    }
+
+    @FXML
     private void handleLogout(ActionEvent event) {
         com.eventmanager.util.SessionUtil.clear();
         switchScene("/fxml/login.fxml");
@@ -38,9 +63,28 @@ public class AdminDashboardController {
         try {
             Stage stage = (Stage) eventButton.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            stage.setScene(scene);
         } catch (Exception e) {
             e.printStackTrace();
+            showError("Erreur", "Impossible de charger la page demandée.");
         }
+    }
+
+    private void showError(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showInfo(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 } 
