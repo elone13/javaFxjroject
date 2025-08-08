@@ -24,4 +24,14 @@ public class Client {
 
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
+
+    @Override
+    public String toString() {
+        String n = name != null ? name : "";
+        String e = email != null ? email : "";
+        if (!e.isEmpty()) {
+            return n + " (" + e + ")";
+        }
+        return n;
+    }
 } 

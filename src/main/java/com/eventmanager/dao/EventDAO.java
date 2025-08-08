@@ -3,9 +3,7 @@ package com.eventmanager.dao;
 import com.eventmanager.model.Event;
 import com.eventmanager.util.DBUtil;
 
-import java.math.BigDecimal;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -144,4 +142,4 @@ public class EventDAO {
         stmt.setInt(10, event.getMaxParticipants());
         stmt.setBigDecimal(11, event.getPrice());
     }
-} 
+}

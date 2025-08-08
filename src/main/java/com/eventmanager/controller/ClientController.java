@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ClientController {
@@ -41,50 +42,42 @@ public class ClientController {
 
     @FXML
     private void handleAdd() {
-        try {
-            String name = nameField.getText();
-            String email = emailField.getText();
-            String phone = phoneField.getText();
-            Client client = new Client(0, name, email, phone);
-            if (clientDAO.addClient(client)) {
+        Client result = openClientModal(null);
+        if (result != null) {
+            if (clientDAO.addClient(result)) {
                 loadClients();
-                clearForm();
+            } else {
+                showAlert("Erreur", "Échec de l'ajout du client.");
             }
-        } catch (Exception e) {
-            showAlert("Erreur", "Vérifiez les champs du formulaire.");
         }
     }
 
     @FXML
     private void handleEdit() {
         Client selected = clientTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            try {
-                selected.setName(nameField.getText());
-                selected.setEmail(emailField.getText());
-                selected.setPhone(phoneField.getText());
-                if (clientDAO.updateClient(selected)) {
-                    loadClients();
-                    clearForm();
-                }
-            } catch (Exception e) {
-                showAlert("Erreur", "Vérifiez les champs du formulaire.");
+        if (selected == null) { showAlert("Aucun client sélectionné", "Veuillez sélectionner un client à modifier."); return; }
+        Client edited = openClientModal(selected);
+        if (edited != null) {
+            if (clientDAO.updateClient(edited)) {
+                loadClients();
+            } else {
+                showAlert("Erreur", "Échec de la modification du client.");
             }
-        } else {
-            showAlert("Aucun client sélectionné", "Veuillez sélectionner un client à modifier.");
         }
     }
 
     @FXML
     private void handleDelete() {
         Client selected = clientTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
+        if (selected == null) { showAlert("Aucun client sélectionné", "Veuillez sélectionner un client à supprimer."); return; }
+        Boolean confirmed = openDeleteModal("Supprimer le client", java.util.Collections.singletonList(selected.getName()));
+        if (Boolean.TRUE.equals(confirmed)) {
             if (clientDAO.deleteClient(selected.getId())) {
                 loadClients();
                 clearForm();
+            } else {
+                showAlert("Erreur", "Échec de la suppression du client.");
             }
-        } else {
-            showAlert("Aucun client sélectionné", "Veuillez sélectionner un client à supprimer.");
         }
     }
 
@@ -116,5 +109,47 @@ public class ClientController {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    private Client openClientModal(Client client) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client_modal.fxml"));
+            Parent root = loader.load();
+            ClientModalController controller = loader.getController();
+            Stage stage = new Stage();
+            controller.setDialogStage(stage);
+            controller.setClient(client);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle(client == null ? "Nouveau client" : "Modifier le client");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            if (controller.isSaved()) {
+                return controller.getResultClient();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir la modale: " + e.getMessage());
+        }
+        return null;
+    }
+
+    private Boolean openDeleteModal(String message, java.util.List<String> items) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/delete_confirmation_modal.fxml"));
+            Parent root = loader.load();
+            DeleteConfirmationModalController controller = loader.getController();
+            Stage stage = new Stage();
+            controller.setDialogStage(stage);
+            controller.setItems(items, message);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Confirmation");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            return controller.isConfirmed();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir la confirmation: " + e.getMessage());
+        }
+        return false;
     }
 } 

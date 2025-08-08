@@ -1,7 +1,6 @@
 package com.eventmanager.controller;
 
 import com.eventmanager.dao.EventDAO;
-import com.eventmanager.dao.ClientDAO;
 import com.eventmanager.model.Event;
 import com.eventmanager.model.Client;
 import javafx.collections.FXCollections;
@@ -11,11 +10,12 @@ import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalTime;
+ 
 
 public class EventController {
     @FXML private TableView<Event> eventTable;
@@ -39,15 +39,13 @@ public class EventController {
     @FXML private TextField priceField;
 
     private final EventDAO eventDAO = new EventDAO();
-    private final ClientDAO clientDAO = new ClientDAO();
     private ObservableList<Event> eventList;
 
     @FXML
     public void initialize() {
-        setupColumns();
-        setupComboBoxes();
-        setupSelectionListener();
-        loadEvents();
+    setupColumns();
+    // Skip setting up optional controls; dialogs handle their own combos
+    loadEvents();
     }
 
     private void setupColumns() {
@@ -65,87 +63,21 @@ public class EventController {
             new javafx.beans.property.SimpleObjectProperty<>(cellData.getValue().getPrice()));
     }
 
-    private void setupComboBoxes() {
-        statusComboBox.setItems(FXCollections.observableArrayList(
-            "PLANIFIE", "EN_COURS", "TERMINE", "ANNULE"));
-        statusComboBox.setValue("PLANIFIE");
-
-        // Load clients
-        clientComboBox.setItems(FXCollections.observableArrayList(clientDAO.getAllClients()));
-    }
-
-    private void setupSelectionListener() {
-        eventTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                populateForm(newSelection);
-            }
-        });
-    }
-
     private void loadEvents() {
         eventList = FXCollections.observableArrayList(eventDAO.getAllEvents());
         eventTable.setItems(eventList);
     }
 
-    private void populateForm(Event event) {
-        titleField.setText(event.getTitle());
-        descriptionArea.setText(event.getDescription());
-        datePicker.setValue(event.getEventDate());
-        startTimeField.setText(event.getStartTime() != null ? event.getStartTime().toString() : "");
-        endTimeField.setText(event.getEndTime() != null ? event.getEndTime().toString() : "");
-        locationField.setText(event.getLocation());
-        
-        // Find and select the corresponding client
-        for (Client client : clientComboBox.getItems()) {
-            if (client.getId() == event.getClientId()) {
-                clientComboBox.setValue(client);
-                break;
-            }
-        }
-        
-        providerField.setText(event.getProvider());
-        statusComboBox.setValue(event.getStatus());
-        maxParticipantsField.setText(String.valueOf(event.getMaxParticipants()));
-        priceField.setText(event.getPrice() != null ? event.getPrice().toString() : "0.00");
-    }
-
     @FXML
     private void handleAdd() {
-        if (validateForm()) {
-            try {
-                LocalTime startTime = null;
-                LocalTime endTime = null;
-                
-                if (!startTimeField.getText().trim().isEmpty()) {
-                    startTime = LocalTime.parse(startTimeField.getText().trim());
-                }
-                if (!endTimeField.getText().trim().isEmpty()) {
-                    endTime = LocalTime.parse(endTimeField.getText().trim());
-                }
-
-                Event event = new Event(0,
-                    titleField.getText().trim(),
-                    descriptionArea.getText().trim(),
-                    datePicker.getValue(),
-                    startTime,
-                    endTime,
-                    locationField.getText().trim(),
-                    clientComboBox.getValue().getId(),
-                    providerField.getText().trim(),
-                    statusComboBox.getValue(),
-                    Integer.parseInt(maxParticipantsField.getText().trim()),
-                    new BigDecimal(priceField.getText().trim())
-                );
-
-                if (eventDAO.addEvent(event)) {
-                    loadEvents();
-                    clearForm();
-                    showSuccess("Événement ajouté avec succès!");
-                } else {
-                    showError("Erreur lors de l'ajout de l'événement.");
-                }
-            } catch (Exception e) {
-                showError("Erreur: " + e.getMessage());
+        // Open modal for creation
+        Event result = openEventModal(null);
+        if (result != null) {
+            if (eventDAO.addEvent(result)) {
+                loadEvents();
+                showSuccess("Événement ajouté avec succès!");
+            } else {
+                showError("Erreur lors de l'ajout de l'événement.");
             }
         }
     }
@@ -153,72 +85,80 @@ public class EventController {
     @FXML
     private void handleEdit() {
         Event selected = eventTable.getSelectionModel().getSelectedItem();
-        if (selected != null && validateForm()) {
-            try {
-                LocalTime startTime = null;
-                LocalTime endTime = null;
-                
-                if (!startTimeField.getText().trim().isEmpty()) {
-                    startTime = LocalTime.parse(startTimeField.getText().trim());
-                }
-                if (!endTimeField.getText().trim().isEmpty()) {
-                    endTime = LocalTime.parse(endTimeField.getText().trim());
-                }
-
-                selected.setTitle(titleField.getText().trim());
-                selected.setDescription(descriptionArea.getText().trim());
-                selected.setEventDate(datePicker.getValue());
-                selected.setStartTime(startTime);
-                selected.setEndTime(endTime);
-                selected.setLocation(locationField.getText().trim());
-                selected.setClientId(clientComboBox.getValue().getId());
-                selected.setProvider(providerField.getText().trim());
-                selected.setStatus(statusComboBox.getValue());
-                selected.setMaxParticipants(Integer.parseInt(maxParticipantsField.getText().trim()));
-                selected.setPrice(new BigDecimal(priceField.getText().trim()));
-
-                if (eventDAO.updateEvent(selected)) {
-                    loadEvents();
-                    clearForm();
-                    showSuccess("Événement modifié avec succès!");
-                } else {
-                    showError("Erreur lors de la modification de l'événement.");
-                }
-            } catch (Exception e) {
-                showError("Erreur: " + e.getMessage());
+        if (selected == null) { showError("Veuillez sélectionner un événement à modifier."); return; }
+        Event edited = openEventModal(selected);
+        if (edited != null) {
+            if (eventDAO.updateEvent(edited)) {
+                loadEvents();
+                showSuccess("Événement modifié avec succès!");
+            } else {
+                showError("Erreur lors de la modification de l'événement.");
             }
-        } else if (selected == null) {
-            showError("Veuillez sélectionner un événement à modifier.");
         }
     }
 
     @FXML
     private void handleDelete() {
         Event selected = eventTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmAlert.setTitle("Confirmation");
-            confirmAlert.setHeaderText("Supprimer l'événement");
-            confirmAlert.setContentText("Êtes-vous sûr de vouloir supprimer \"" + selected.getTitle() + "\" ?");
-
-            if (confirmAlert.showAndWait().get() == ButtonType.OK) {
-                if (eventDAO.deleteEvent(selected.getId())) {
-                    loadEvents();
-                    clearForm();
-                    showSuccess("Événement supprimé avec succès!");
-                } else {
-                    showError("Erreur lors de la suppression de l'événement.");
-                }
+        if (selected == null) { showError("Veuillez sélectionner un événement à supprimer."); return; }
+        Boolean confirmed = openDeleteModal("Supprimer l'événement", java.util.Collections.singletonList(selected.getTitle()));
+        if (Boolean.TRUE.equals(confirmed)) {
+            if (eventDAO.deleteEvent(selected.getId())) {
+                loadEvents();
+                clearForm();
+                showSuccess("Événement supprimé avec succès!");
+            } else {
+                showError("Erreur lors de la suppression de l'événement.");
             }
-        } else {
-            showError("Veuillez sélectionner un événement à supprimer.");
         }
     }
 
     @FXML
     private void handleClear() {
-        clearForm();
-        eventTable.getSelectionModel().clearSelection();
+    clearForm();
+    eventTable.getSelectionModel().clearSelection();
+    }
+
+    private Event openEventModal(Event event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/event_modal.fxml"));
+            Parent root = loader.load();
+            EventModalController controller = loader.getController();
+            Stage stage = new Stage();
+            controller.setDialogStage(stage);
+            controller.setEvent(event);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle(event == null ? "Nouvel événement" : "Modifier l'événement");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            if (controller.isSaved()) {
+                return controller.getResultEvent();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Impossible d'ouvrir la modale: " + e.getMessage());
+        }
+        return null;
+    }
+
+    private Boolean openDeleteModal(String message, java.util.List<String> items) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/delete_confirmation_modal.fxml"));
+            Parent root = loader.load();
+            DeleteConfirmationModalController controller = loader.getController();
+            Stage stage = new Stage();
+            controller.setDialogStage(stage);
+            controller.setItems(items, message);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Confirmation");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            return controller.isConfirmed();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Impossible d'ouvrir la confirmation: " + e.getMessage());
+        }
+        return false;
     }
 
     @FXML
@@ -238,61 +178,18 @@ public class EventController {
         }
     }
 
-    private boolean validateForm() {
-        if (titleField.getText().trim().isEmpty()) {
-            showError("Le titre est obligatoire.");
-            return false;
-        }
-        if (datePicker.getValue() == null) {
-            showError("La date est obligatoire.");
-            return false;
-        }
-        if (clientComboBox.getValue() == null) {
-            showError("Veuillez sélectionner un client.");
-            return false;
-        }
-        
-        try {
-            if (!startTimeField.getText().trim().isEmpty()) {
-                LocalTime.parse(startTimeField.getText().trim());
-            }
-            if (!endTimeField.getText().trim().isEmpty()) {
-                LocalTime.parse(endTimeField.getText().trim());
-            }
-        } catch (Exception e) {
-            showError("Format d'heure invalide (HH:MM).");
-            return false;
-        }
-        
-        try {
-            Integer.parseInt(maxParticipantsField.getText().trim());
-        } catch (NumberFormatException e) {
-            showError("Le nombre maximum de participants doit être un entier.");
-            return false;
-        }
-        
-        try {
-            new BigDecimal(priceField.getText().trim());
-        } catch (NumberFormatException e) {
-            showError("Le prix doit être un nombre valide.");
-            return false;
-        }
-        
-        return true;
-    }
-
     private void clearForm() {
-        titleField.clear();
-        descriptionArea.clear();
-        datePicker.setValue(null);
-        startTimeField.clear();
-        endTimeField.clear();
-        locationField.clear();
-        clientComboBox.setValue(null);
-        providerField.clear();
-        statusComboBox.setValue("PLANIFIE");
-        maxParticipantsField.setText("100");
-        priceField.setText("0.00");
+    if (titleField != null) titleField.clear();
+    if (descriptionArea != null) descriptionArea.clear();
+    if (datePicker != null) datePicker.setValue(null);
+    if (startTimeField != null) startTimeField.clear();
+    if (endTimeField != null) endTimeField.clear();
+    if (locationField != null) locationField.clear();
+    if (clientComboBox != null) clientComboBox.setValue(null);
+    if (providerField != null) providerField.clear();
+    if (statusComboBox != null) statusComboBox.setValue("PLANIFIE");
+    if (maxParticipantsField != null) maxParticipantsField.setText("100");
+    if (priceField != null) priceField.setText("0.00");
     }
 
     private void showError(String message) {
@@ -309,5 +206,24 @@ public class EventController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleOpenFilters() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/filter_modal.fxml"));
+            Parent root = loader.load();
+            FilterModalController controller = loader.getController();
+            Stage stage = new Stage();
+            controller.setDialogStage(stage);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Filtres avancés");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            // Optionally, apply filters when controller.isApplied()
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Impossible d'ouvrir la modale de filtres: " + e.getMessage());
+        }
     }
 } 
