@@ -4,179 +4,108 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1"
+<BorderPane xmlns="http://javafx.com/javafx/21.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.eventmanager.controller.EventController"
             stylesheets="@../css/style.css"
-            styleClass="root">
+            styleClass="simple-root">
 
-   <!-- Top Header -->
+   <!-- HEADER SIMPLIFIÉ -->
    <top>
-      <VBox>
+      <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #ffffff; -fx-padding: 15 25; -fx-border-color: #e2e8f0; -fx-border-width: 0 0 1 0;">
          <children>
-            <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="header-bar">
-               <children>
-                  <Button onAction="#handleBack" styleClass="btn-secondary" text="← Retour" />
-                  <Label styleClass="page-title" text="Gestion des Événements" />
-                  <Region HBox.hgrow="ALWAYS"/>
-                  <Button onAction="#handleClear" styleClass="btn-outline" text="🗑 Effacer" />
-               </children>
-               <padding>
-                  <Insets top="20" right="30" bottom="20" left="30"/>
-               </padding>
-            </HBox>
-            
-            <!-- Selection Info Bar -->
-            <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #374151; -fx-padding: 10 30 10 30;" visible="false" fx:id="selectionBar">
-               <children>
-                  <Label fx:id="selectionLabel" text="0 élément(s) sélectionné(s)" style="-fx-text-fill: #e5e7eb; -fx-font-weight: 600;" />
-                  <Region HBox.hgrow="ALWAYS"/>
-               </children>
-            </HBox>
+            <Button onAction="#handleBack" text="← Retour" style="-fx-background-color: transparent; -fx-text-fill: #4a5568; -fx-font-size: 14px; -fx-cursor: hand;" />
+            <Label text="Événements" style="-fx-font-size: 24px; -fx-font-weight: 600; -fx-text-fill: #2d3748;" />
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button onAction="#handleAdd" text="+ Nouveau" style="-fx-background-color: #4299e1; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 16; -fx-font-size: 14px; -fx-cursor: hand;" />
          </children>
-      </VBox>
+      </HBox>
    </top>
 
-   <!-- Center Table -->
+   <!-- CONTENU PRINCIPAL SIMPLIFIÉ -->
    <center>
-      <VBox spacing="20.0" style="-fx-padding: 30;">
+      <HBox spacing="0" style="-fx-background-color: #f7fafc;">
          <children>
-            <HBox alignment="CENTER_LEFT" spacing="15.0">
+
+            <!-- TABLEAU -->
+            <VBox style="-fx-background-color: white; -fx-padding: 25;" HBox.hgrow="ALWAYS">
                <children>
-                  <Label text="📋 Liste des événements" styleClass="section-title"/>
-                  <Region HBox.hgrow="ALWAYS"/>
-                  <CheckBox fx:id="selectAllCheckBox" text="Tout sélectionner" styleClass="check-box"/>
-               </children>
-            </HBox>
-            
-            <TableView fx:id="eventTable" styleClass="modern-table" VBox.vgrow="ALWAYS">
-               <columns>
-                  <TableColumn fx:id="idColumn" prefWidth="60" text="ID"/>
-                  <TableColumn fx:id="titleColumn" prefWidth="200" text="Titre"/>
-                  <TableColumn fx:id="dateColumn" prefWidth="120" text="Date"/>
-                  <TableColumn fx:id="locationColumn" prefWidth="150" text="Lieu"/>
-                  <TableColumn fx:id="statusColumn" prefWidth="100" text="Statut"/>
-                  <TableColumn fx:id="priceColumn" prefWidth="100" text="Prix (€)"/>
-               </columns>
-            </TableView>
-         </children>
-      </VBox>
-   </center>
-
-   <!-- Bottom Form and Action Bar -->
-   <bottom>
-      <VBox spacing="0" styleClass="form-panel">
-         <children>
-            <!-- Event Form -->
-            <TitledPane expanded="false" text="📝 Formulaire d'événement" styleClass="titled-pane">
-               <content>
-                  <VBox spacing="15.0" style="-fx-padding: 20;">
+                  <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 0 0 15 0;">
                      <children>
-                        <HBox spacing="15.0">
-                           <children>
-                              <VBox spacing="8.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label text="Titre de l'événement" styleClass="label"/>
-                                    <TextField fx:id="titleField" promptText="Nom de l'événement" styleClass="form-field"/>
-                                 </children>
-                              </VBox>
-                              <VBox spacing="8.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label text="Lieu" styleClass="label"/>
-                                    <TextField fx:id="locationField" promptText="Adresse ou lieu" styleClass="form-field"/>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
+                        <Label text="Liste des événements" style="-fx-font-size: 18px; -fx-font-weight: 500; -fx-text-fill: #2d3748;" />
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="totalLabel" text="0 événement(s)" style="-fx-font-size: 14px; -fx-text-fill: #718096;" />
+                     </children>
+                  </HBox>
 
-                        <VBox spacing="8.0">
-                           <children>
-                              <Label text="Description" styleClass="label"/>
-                              <TextArea fx:id="descriptionArea" promptText="Description détaillée de l'événement" prefRowCount="3" styleClass="form-field"/>
-                           </children>
+                  <TableView fx:id="eventTable" style="-fx-background-color: white; -fx-table-cell-border-color: #e2e8f0;" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="idColumn" prefWidth="50" text="ID" />
+                        <TableColumn fx:id="titleColumn" prefWidth="200" text="Titre" />
+                        <TableColumn fx:id="dateColumn" prefWidth="120" text="Date" />
+                        <TableColumn fx:id="locationColumn" prefWidth="150" text="Lieu" />
+                        <TableColumn fx:id="statusColumn" prefWidth="100" text="Statut" />
+                        <TableColumn fx:id="priceColumn" prefWidth="80" text="Prix (€)" />
+                     </columns>
+                  </TableView>
+
+                  <!-- Actions rapides -->
+                  <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 15 0 0 0;">
+                     <children>
+                        <Button onAction="#handleEdit" text="Modifier" style="-fx-background-color: #ed8936; -fx-text-fill: white; -fx-background-radius: 4; -fx-padding: 6 12; -fx-font-size: 13px;" />
+                        <Button onAction="#handleDelete" text="Supprimer" style="-fx-background-color: #e53e3e; -fx-text-fill: white; -fx-background-radius: 4; -fx-padding: 6 12; -fx-font-size: 13px;" />
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="selectionLabel" text="0 sélectionné(s)" style="-fx-font-size: 12px; -fx-text-fill: #a0aec0;" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+
+            <!-- FORMULAIRE SIMPLIFIÉ -->
+            <VBox style="-fx-background-color: #f8f9fa; -fx-padding: 25; -fx-border-color: #e2e8f0; -fx-border-width: 0 0 0 1; -fx-min-width: 320; -fx-max-width: 320;">
+               <children>
+                  <Label text="Ajouter un événement" style="-fx-font-size: 16px; -fx-font-weight: 500; -fx-text-fill: #2d3748; -fx-padding: 0 0 20 0;" />
+
+                  <!-- Champs essentiels -->
+                  <VBox spacing="15">
+                     <children>
+                        <VBox spacing="5">
+                           <Label text="Titre" style="-fx-font-size: 13px; -fx-text-fill: #4a5568; -fx-font-weight: 500;" />
+                           <TextField fx:id="titleField" promptText="Nom de l'événement" style="-fx-background-color: white; -fx-border-color: #cbd5e0; -fx-border-radius: 4; -fx-padding: 10;" />
                         </VBox>
 
-                        <HBox spacing="15.0">
-                           <children>
-                              <VBox spacing="8.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label text="Date" styleClass="label"/>
-                                    <DatePicker fx:id="datePicker" styleClass="form-field"/>
-                                 </children>
-                              </VBox>
-                              <VBox spacing="8.0">
-                                 <children>
-                                    <Label text="Heure début" styleClass="label"/>
-                                    <TextField fx:id="startTimeField" promptText="09:00" styleClass="form-field" prefWidth="100"/>
-                                 </children>
-                              </VBox>
-                              <VBox spacing="8.0">
-                                 <children>
-                                    <Label text="Heure fin" styleClass="label"/>
-                                    <TextField fx:id="endTimeField" promptText="17:00" styleClass="form-field" prefWidth="100"/>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
+                        <VBox spacing="5">
+                           <Label text="Date" style="-fx-font-size: 13px; -fx-text-fill: #4a5568; -fx-font-weight: 500;" />
+                           <DatePicker fx:id="datePicker" style="-fx-background-color: white; -fx-border-color: #cbd5e0; -fx-border-radius: 4;" />
+                        </VBox>
 
-                        <HBox spacing="15.0">
-                           <children>
-                              <VBox spacing="8.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label text="Client" styleClass="label"/>
-                                    <ComboBox fx:id="clientComboBox" promptText="Sélectionner un client" styleClass="form-field" maxWidth="Infinity"/>
-                                 </children>
-                              </VBox>
-                              <VBox spacing="8.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label text="Statut" styleClass="label"/>
-                                    <ComboBox fx:id="statusComboBox" promptText="Statut de l'événement" styleClass="form-field" maxWidth="Infinity"/>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
+                        <VBox spacing="5">
+                           <Label text="Lieu" style="-fx-font-size: 13px; -fx-text-fill: #4a5568; -fx-font-weight: 500;" />
+                           <TextField fx:id="locationField" promptText="Adresse du lieu" style="-fx-background-color: white; -fx-border-color: #cbd5e0; -fx-border-radius: 4; -fx-padding: 10;" />
+                        </VBox>
 
-                        <HBox spacing="15.0">
-                           <children>
-                              <VBox spacing="8.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label text="Prestataire" styleClass="label"/>
-                                    <TextField fx:id="providerField" promptText="Nom du prestataire" styleClass="form-field"/>
-                                 </children>
-                              </VBox>
-                              <VBox spacing="8.0">
-                                 <children>
-                                    <Label text="Participants max" styleClass="label"/>
-                                    <TextField fx:id="maxParticipantsField" promptText="100" styleClass="form-field" prefWidth="120"/>
-                                 </children>
-                              </VBox>
-                              <VBox spacing="8.0">
-                                 <children>
-                                    <Label text="Prix (€)" styleClass="label"/>
-                                    <TextField fx:id="priceField" promptText="0.00" styleClass="form-field" prefWidth="100"/>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
+                        <VBox spacing="5">
+                           <Label text="Prix (€)" style="-fx-font-size: 13px; -fx-text-fill: #4a5568; -fx-font-weight: 500;" />
+                           <TextField fx:id="priceField" promptText="0.00" style="-fx-background-color: white; -fx-border-color: #cbd5e0; -fx-border-radius: 4; -fx-padding: 10;" />
+                        </VBox>
+
+                        <VBox spacing="5">
+                           <Label text="Description" style="-fx-font-size: 13px; -fx-text-fill: #4a5568; -fx-font-weight: 500;" />
+                           <TextArea fx:id="descriptionArea" promptText="Description de l'événement..." prefRowCount="3" style="-fx-background-color: white; -fx-border-color: #cbd5e0; -fx-border-radius: 4;" />
+                        </VBox>
                      </children>
                   </VBox>
-               </content>
-            </TitledPane>
-            
-            <!-- Quick Actions -->
-            <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-padding: 20 30 20 30; -fx-background-color: #1f2937;">
-               <children>
-                  <Button onAction="#handleAdd" styleClass="btn-primary" text="➕ Nouvel Événement" />
-                  <Separator orientation="VERTICAL"/>
-                  <Label text="Actions rapides :" style="-fx-text-fill: #9ca3af; -fx-font-weight: 500;" />
-                  <Button onAction="#handleEdit" styleClass="btn-warning" text="✏ Modifier" />
-                  <Button onAction="#handleDelete" styleClass="btn-danger" text="🗑 Supprimer" />
-                  <Region HBox.hgrow="ALWAYS"/>
-                  <Label fx:id="totalLabel" text="Total : 0 événement(s)" style="-fx-text-fill: #9ca3af;" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </bottom>
 
+                  <!-- Boutons d'action -->
+                  <VBox spacing="10" style="-fx-padding: 25 0 0 0;">
+                     <children>
+                        <Button onAction="#handleAdd" text="Enregistrer" style="-fx-background-color: #48bb78; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 12; -fx-font-size: 14px; -fx-font-weight: 600; -fx-pref-width: 270;" />
+                        <Button onAction="#handleClear" text="Réinitialiser" style="-fx-background-color: transparent; -fx-text-fill: #718096; -fx-border-color: #cbd5e0; -fx-border-radius: 6; -fx-padding: 10; -fx-font-size: 13px; -fx-pref-width: 270;" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
 </BorderPane>

@@ -4,44 +4,54 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.eventmanager.controller.LoginController" alignment="CENTER" spacing="20.0" styleClass="root">
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.eventmanager.controller.LoginController" 
+      alignment="CENTER" spacing="20.0" styleClass="root">
+
    <children>
       <VBox alignment="CENTER" maxWidth="400.0" spacing="30.0" styleClass="login-container">
          <children>
+            <!-- Titre -->
             <VBox alignment="CENTER" spacing="15.0">
                <children>
-                  <Label styleClass="login-title" text="Event Manager" />
-                  <Label style="-fx-text-fill: #4a5568; -fx-font-size: 16px; -fx-font-weight: 500;" text="Connectez-vous à votre compte" />
+                  <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Event Manager" />
+                  <Label style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: 500;" text="Connectez-vous à votre compte" />
                </children>
             </VBox>
             
+            <!-- Formulaire -->
             <VBox spacing="25.0" VBox.vgrow="ALWAYS">
                <children>
                   <VBox spacing="10.0">
                      <children>
-                        <Label text="Nom d'utilisateur" style="-fx-font-weight: bold; -fx-text-fill: #f9f9f9ff;" />
-                        <TextField fx:id="usernameField" promptText="Saisissez votre nom d'utilisateur" styleClass="form-field" />
+                        <Label text="Nom d'utilisateur" style="-fx-font-weight: bold; -fx-text-fill: white;" />
+                        <TextField fx:id="usernameField" promptText="Saisissez votre nom d'utilisateur" 
+                                   style="-fx-background-color: #2d3748; -fx-text-fill: white; -fx-prompt-text-fill: #a0aec0; -fx-background-radius: 8; -fx-padding: 8;" />
                      </children>
                   </VBox>
                   
                   <VBox spacing="10.0">
                      <children>
-                        <Label text="Mot de passe" style="-fx-font-weight: bold; -fx-text-fill: #f3f4f5ff;" />
-                        <PasswordField fx:id="passwordField" promptText="Saisissez votre mot de passe" styleClass="form-field" />
+                        <Label text="Mot de passe" style="-fx-font-weight: bold; -fx-text-fill: white;" />
+                        <PasswordField fx:id="passwordField" promptText="Saisissez votre mot de passe" 
+                                       style="-fx-background-color: #2d3748; -fx-text-fill: white; -fx-prompt-text-fill: #a0aec0; -fx-background-radius: 8; -fx-padding: 8;" />
                      </children>
                   </VBox>
                   
-                  <Label fx:id="errorLabel" styleClass="error-text" textFill="#e53e3e" visible="false" wrapText="true" />
+                  <Label fx:id="errorLabel" style="-fx-text-fill: #e53e3e; -fx-font-weight: bold;" visible="false" wrapText="true" />
                   
-                  <Button maxWidth="1.7976931348623157E308" onAction="#handleLogin" styleClass="btn-primary" text="Se connecter" />
+                  <Button maxWidth="Infinity" onAction="#handleLogin" 
+                          style="-fx-background-color: #3182ce; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10;"
+                          text="Se connecter" />
                </children>
             </VBox>
             
-            <VBox alignment="CENTER" spacing="10.0">
+            <!-- Comptes démo -->
+            <VBox alignment="CENTER" spacing="5.0">
                <children>
-                  <Label style="-fx-text-fill: #fefefeff; -fx-font-size: 12px;" text="Comptes de démonstration:" />
-                  <Label style="-fx-text-fill: #ffffffff; -fx-font-size: 12px;" text="Admin: admin / admin123" />
-                  <Label style="-fx-text-fill: #ffffffff; -fx-font-size: 12px;" text="Employé: employe / employe123" />
+                  <Label style="-fx-text-fill: white; -fx-font-size: 12px;" text="Comptes de démonstration:" />
+                  <Label style="-fx-text-fill: white; -fx-font-size: 12px;" text="Admin: admin / admin123" />
+                  <Label style="-fx-text-fill: white; -fx-font-size: 12px;" text="Employé: employe / employe123" />
                </children>
             </VBox>
          </children>
